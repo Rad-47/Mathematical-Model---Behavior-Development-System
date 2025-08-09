@@ -1,0 +1,85 @@
+{
+  "factors": {
+    "precision": 100.0,
+    "resolve": 100.0,
+    "innovation": 100.0,
+    "harmony": 100.0
+  },
+  "alignment_pct": 99.49,
+  "top_drivers": [
+    {
+      "metric": "language.filler_inv",
+      "factor": "precision",
+      "contribution": 41.4
+    },
+    {
+      "metric": "interaction.talk_listen_bal",
+      "factor": "resolve",
+      "contribution": 40.95
+    },
+    {
+      "metric": "vocal.energy",
+      "factor": "resolve",
+      "contribution": 40.56
+    },
+    {
+      "metric": "facial.distracted_inv",
+      "factor": "resolve",
+      "contribution": 37.05
+    },
+    {
+      "metric": "language.filler_inv",
+      "factor": "resolve",
+      "contribution": 35.1
+    },
+    {
+      "metric": "language.hedging_inv",
+      "factor": "precision",
+      "contribution": 34.21
+    },
+    {
+      "metric": "language.hedging_inv",
+      "factor": "resolve",
+      "contribution": 33.15
+    },
+    {
+      "metric": "facial.distracted_inv",
+      "factor": "precision",
+      "contribution": 32.77
+    },
+    {
+      "metric": "language.proficiency",
+      "factor": "precision",
+      "contribution": 32.2
+    },
+    {
+      "metric": "derived.action_items",
+      "factor": "resolve",
+      "contribution": 31.2
+    }
+  ],
+  "normalized_metrics": {
+    "language.positivity": 72,
+    "language.objectivity": 64,
+    "language.proficiency": 80,
+    "language.question_ratio": 22.0,
+    "language.offensiveness_inv": 95.0,
+    "language.filler_inv": 90.0,
+    "language.hedging_inv": 85.0,
+    "language.avg_sentence_len": 47.62,
+    "language.patience": 36.11,
+    "vocal.energy": 78,
+    "vocal.emo_pos": 60,
+    "vocal.emo_neu": 25,
+    "vocal.emo_neg_inv": 85.0,
+    "facial.emo_pos": 55,
+    "facial.emo_neu": 20,
+    "facial.emo_dis_inv": 90.0,
+    "facial.attentive": 70,
+    "facial.distracted_inv": 95.0,
+    "interaction.talk_listen_bal": 90.0,
+    "interaction.speed_wpm": 61.11,
+    "derived.action_items": 60.0,
+    "derived.followup_questions": 40.0
+  }
+}

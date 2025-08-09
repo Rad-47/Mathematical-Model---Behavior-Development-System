@@ -1,0 +1,156 @@
+[
+  {
+    "metric": "language.positivity",
+    "precision": 0.1,
+    "resolve": 0.2,
+    "innovation": 0.3,
+    "harmony": 0.4
+  },
+  {
+    "metric": "language.objectivity",
+    "precision": 0.4,
+    "resolve": 0.3,
+    "innovation": 0.2,
+    "harmony": 0.1
+  },
+  {
+    "metric": "language.proficiency",
+    "precision": 0.35,
+    "resolve": 0.25,
+    "innovation": 0.25,
+    "harmony": 0.15
+  },
+  {
+    "metric": "language.question_ratio",
+    "precision": 0.1,
+    "resolve": 0.2,
+    "innovation": 0.4,
+    "harmony": 0.3
+  },
+  {
+    "metric": "language.offensiveness_inv",
+    "precision": 0.25,
+    "resolve": 0.25,
+    "innovation": 0.2,
+    "harmony": 0.3
+  },
+  {
+    "metric": "language.filler_inv",
+    "precision": 0.4,
+    "resolve": 0.3,
+    "innovation": 0.2,
+    "harmony": 0.1
+  },
+  {
+    "metric": "language.hedging_inv",
+    "precision": 0.35,
+    "resolve": 0.3,
+    "innovation": 0.2,
+    "harmony": 0.15
+  },
+  {
+    "metric": "language.avg_sentence_len",
+    "precision": 0.35,
+    "resolve": 0.25,
+    "innovation": 0.25,
+    "harmony": 0.15
+  },
+  {
+    "metric": "language.patience",
+    "precision": 0.25,
+    "resolve": 0.15,
+    "innovation": 0.2,
+    "harmony": 0.4
+  },
+  {
+    "metric": "vocal.energy",
+    "precision": 0.2,
+    "resolve": 0.4,
+    "innovation": 0.3,
+    "harmony": 0.1
+  },
+  {
+    "metric": "vocal.emo_pos",
+    "precision": 0.2,
+    "resolve": 0.2,
+    "innovation": 0.3,
+    "harmony": 0.3
+  },
+  {
+    "metric": "vocal.emo_neu",
+    "precision": 0.4,
+    "resolve": 0.3,
+    "innovation": 0.2,
+    "harmony": 0.1
+  },
+  {
+    "metric": "vocal.emo_neg_inv",
+    "precision": 0.25,
+    "resolve": 0.25,
+    "innovation": 0.2,
+    "harmony": 0.3
+  },
+  {
+    "metric": "facial.emo_pos",
+    "precision": 0.2,
+    "resolve": 0.2,
+    "innovation": 0.3,
+    "harmony": 0.3
+  },
+  {
+    "metric": "facial.emo_neu",
+    "precision": 0.35,
+    "resolve": 0.25,
+    "innovation": 0.2,
+    "harmony": 0.2
+  },
+  {
+    "metric": "facial.emo_dis_inv",
+    "precision": 0.25,
+    "resolve": 0.25,
+    "innovation": 0.2,
+    "harmony": 0.3
+  },
+  {
+    "metric": "facial.attentive",
+    "precision": 0.3,
+    "resolve": 0.3,
+    "innovation": 0.2,
+    "harmony": 0.2
+  },
+  {
+    "metric": "facial.distracted_inv",
+    "precision": 0.3,
+    "resolve": 0.3,
+    "innovation": 0.2,
+    "harmony": 0.2
+  },
+  {
+    "metric": "derived.action_items",
+    "precision": 0.2,
+    "resolve": 0.4,
+    "innovation": 0.2,
+    "harmony": 0.2
+  },
+  {
+    "metric": "derived.followup_questions",
+    "precision": 0.15,
+    "resolve": 0.2,
+    "innovation": 0.4,
+    "harmony": 0.25
+  },
+  {
+    "metric": "interaction.talk_listen_bal",
+    "precision": 0.25,
+    "resolve": 0.35,
+    "innovation": 0.2,
+    "harmony": 0.2
+  },
+  {
+    "metric": "interaction.speed_wpm",
+    "precision": 0.3,
+    "resolve": 0.35,
+    "innovation": 0.25,
+    "harmony": 0.1
+  }
+]
