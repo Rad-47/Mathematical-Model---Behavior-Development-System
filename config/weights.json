@@ -1,156 +1,218 @@
-[
-  {
-    "metric": "language.positivity",
-    "precision": 0.1,
-    "resolve": 0.2,
-    "innovation": 0.3,
-    "harmony": 0.4
+{
+  "positivity": {
+    "Precision": 0.1,
+    "Resolve": 0.3,
+    "Innovation": 0.25,
+    "Harmony": 0.35
   },
-  {
-    "metric": "language.objectivity",
-    "precision": 0.4,
-    "resolve": 0.3,
-    "innovation": 0.2,
-    "harmony": 0.1
+  "objectivity": {
+    "Precision": 0.6,
+    "Resolve": 0.1,
+    "Innovation": 0.1,
+    "Harmony": 0.2
   },
-  {
-    "metric": "language.proficiency",
-    "precision": 0.35,
-    "resolve": 0.25,
-    "innovation": 0.25,
-    "harmony": 0.15
+  "proficiency": {
+    "Precision": 0.45,
+    "Resolve": 0.2,
+    "Innovation": 0.25,
+    "Harmony": 0.1
   },
-  {
-    "metric": "language.question_ratio",
-    "precision": 0.1,
-    "resolve": 0.2,
-    "innovation": 0.4,
-    "harmony": 0.3
+  "hedging_inv": {
+    "Precision": 0.4,
+    "Resolve": 0.25,
+    "Innovation": 0.15,
+    "Harmony": 0.2
   },
-  {
-    "metric": "language.offensiveness_inv",
-    "precision": 0.25,
-    "resolve": 0.25,
-    "innovation": 0.2,
-    "harmony": 0.3
+  "filler_inv": {
+    "Precision": 0.45,
+    "Resolve": 0.25,
+    "Innovation": 0.1,
+    "Harmony": 0.2
   },
-  {
-    "metric": "language.filler_inv",
-    "precision": 0.4,
-    "resolve": 0.3,
-    "innovation": 0.2,
-    "harmony": 0.1
+  "question_ratio": {
+    "Precision": 0.2,
+    "Resolve": 0.15,
+    "Innovation": 0.25,
+    "Harmony": 0.4
   },
-  {
-    "metric": "language.hedging_inv",
-    "precision": 0.35,
-    "resolve": 0.3,
-    "innovation": 0.2,
-    "harmony": 0.15
+  "avg_sentence_len_norm": {
+    "Precision": 0.45,
+    "Resolve": 0.15,
+    "Innovation": 0.3,
+    "Harmony": 0.1
   },
-  {
-    "metric": "language.avg_sentence_len",
-    "precision": 0.35,
-    "resolve": 0.25,
-    "innovation": 0.25,
-    "harmony": 0.15
+  "offensiveness_inv": {
+    "Precision": 0.25,
+    "Resolve": 0.15,
+    "Innovation": 0.1,
+    "Harmony": 0.5
   },
-  {
-    "metric": "language.patience",
-    "precision": 0.25,
-    "resolve": 0.15,
-    "innovation": 0.2,
-    "harmony": 0.4
+  "patience_norm": {
+    "Precision": 0.25,
+    "Resolve": 0.1,
+    "Innovation": 0.15,
+    "Harmony": 0.5
   },
-  {
-    "metric": "vocal.energy",
-    "precision": 0.2,
-    "resolve": 0.4,
-    "innovation": 0.3,
-    "harmony": 0.1
+  "energy": {
+    "Precision": 0.05,
+    "Resolve": 0.6,
+    "Innovation": 0.2,
+    "Harmony": 0.15
   },
-  {
-    "metric": "vocal.emo_pos",
-    "precision": 0.2,
-    "resolve": 0.2,
-    "innovation": 0.3,
-    "harmony": 0.3
+  "emo_pos": {
+    "Precision": 0.1,
+    "Resolve": 0.3,
+    "Innovation": 0.25,
+    "Harmony": 0.35
   },
-  {
-    "metric": "vocal.emo_neu",
-    "precision": 0.4,
-    "resolve": 0.3,
-    "innovation": 0.2,
-    "harmony": 0.1
+  "emo_neu": {
+    "Precision": 0.35,
+    "Resolve": 0.15,
+    "Innovation": 0.2,
+    "Harmony": 0.3
   },
-  {
-    "metric": "vocal.emo_neg_inv",
-    "precision": 0.25,
-    "resolve": 0.25,
-    "innovation": 0.2,
-    "harmony": 0.3
+  "emo_neg_inv": {
+    "Precision": 0.1,
+    "Resolve": 0.4,
+    "Innovation": 0.15,
+    "Harmony": 0.35
   },
-  {
-    "metric": "facial.emo_pos",
-    "precision": 0.2,
-    "resolve": 0.2,
-    "innovation": 0.3,
-    "harmony": 0.3
+  "attention_att": {
+    "Precision": 0.2,
+    "Resolve": 0.15,
+    "Innovation": 0.15,
+    "Harmony": 0.5
   },
-  {
-    "metric": "facial.emo_neu",
-    "precision": 0.35,
-    "resolve": 0.25,
-    "innovation": 0.2,
-    "harmony": 0.2
+  "attention_dist_inv": {
+    "Precision": 0.2,
+    "Resolve": 0.1,
+    "Innovation": 0.1,
+    "Harmony": 0.6
   },
-  {
-    "metric": "facial.emo_dis_inv",
-    "precision": 0.25,
-    "resolve": 0.25,
-    "innovation": 0.2,
-    "harmony": 0.3
+  "facial_emo_pos": {
+    "Precision": 0.1,
+    "Resolve": 0.2,
+    "Innovation": 0.2,
+    "Harmony": 0.5
   },
-  {
-    "metric": "facial.attentive",
-    "precision": 0.3,
-    "resolve": 0.3,
-    "innovation": 0.2,
-    "harmony": 0.2
+  "facial_emo_neu": {
+    "Precision": 0.25,
+    "Resolve": 0.15,
+    "Innovation": 0.15,
+    "Harmony": 0.45
   },
-  {
-    "metric": "facial.distracted_inv",
-    "precision": 0.3,
-    "resolve": 0.3,
-    "innovation": 0.2,
-    "harmony": 0.2
+  "facial_emo_dis_inv": {
+    "Precision": 0.1,
+    "Resolve": 0.2,
+    "Innovation": 0.15,
+    "Harmony": 0.55
   },
-  {
-    "metric": "derived.action_items",
-    "precision": 0.2,
-    "resolve": 0.4,
-    "innovation": 0.2,
-    "harmony": 0.2
+  "talk_balance": {
+    "Precision": 0.2,
+    "Resolve": 0.2,
+    "Innovation": 0.2,
+    "Harmony": 0.4
   },
-  {
-    "metric": "derived.followup_questions",
-    "precision": 0.15,
-    "resolve": 0.2,
-    "innovation": 0.4,
-    "harmony": 0.25
+  "speed_wpm_norm": {
+    "Precision": 0.2,
+    "Resolve": 0.5,
+    "Innovation": 0.2,
+    "Harmony": 0.1
   },
-  {
-    "metric": "interaction.talk_listen_bal",
-    "precision": 0.25,
-    "resolve": 0.35,
-    "innovation": 0.2,
-    "harmony": 0.2
+  "action_items": {
+    "Precision": 0.3,
+    "Resolve": 0.45,
+    "Innovation": 0.15,
+    "Harmony": 0.1
   },
-  {
-    "metric": "interaction.speed_wpm",
-    "precision": 0.3,
-    "resolve": 0.35,
-    "innovation": 0.25,
-    "harmony": 0.1
+  "followup_questions": {
+    "Precision": 0.2,
+    "Resolve": 0.1,
+    "Innovation": 0.3,
+    "Harmony": 0.4
+  },
+  "kw_strength": {
+    "Precision": 0.35,
+    "Resolve": 0.1,
+    "Innovation": 0.35,
+    "Harmony": 0.2
+  },
+  "lang_emo_nervousness": {
+    "Precision": 0.1,
+    "Resolve": 0.6,
+    "Innovation": 0.1,
+    "Harmony": 0.2
+  },
+  "lang_emo_disapproval": {
+    "Precision": 0.1,
+    "Resolve": 0.5,
+    "Innovation": 0.1,
+    "Harmony": 0.3
+  },
+  "lang_emo_sadness": {
+    "Precision": 0.1,
+    "Resolve": 0.4,
+    "Innovation": 0.1,
+    "Harmony": 0.4
+  },
+  "lang_emo_anger": {
+    "Precision": 0.1,
+    "Resolve": 0.6,
+    "Innovation": 0.1,
+    "Harmony": 0.2
+  },
+  "lang_emo_confusion": {
+    "Precision": 0.6,
+    "Resolve": 0.2,
+    "Innovation": 0.1,
+    "Harmony": 0.1
+  },
+  "lang_emo_neutral": {
+    "Precision": 0.3,
+    "Resolve": 0.15,
+    "Innovation": 0.15,
+    "Harmony": 0.4
+  },
+  "lang_emo_curiosity": {
+    "Precision": 0.1,
+    "Resolve": 0.15,
+    "Innovation": 0.55,
+    "Harmony": 0.2
+  },
+  "lang_emo_thoughtful": {
+    "Precision": 0.25,
+    "Resolve": 0.1,
+    "Innovation": 0.45,
+    "Harmony": 0.2
+  },
+  "lang_emo_admiration": {
+    "Precision": 0.1,
+    "Resolve": 0.2,
+    "Innovation": 0.2,
+    "Harmony": 0.5
+  },
+  "lang_emo_optimism": {
+    "Precision": 0.1,
+    "Resolve": 0.35,
+    "Innovation": 0.15,
+    "Harmony": 0.4
+  },
+  "lang_emo_approval": {
+    "Precision": 0.1,
+    "Resolve": 0.2,
+    "Innovation": 0.15,
+    "Harmony": 0.55
+  },
+  "lang_emo_joy": {
+    "Precision": 0.1,
+    "Resolve": 0.25,
+    "Innovation": 0.2,
+    "Harmony": 0.45
+  },
+  "lang_emo_excitement": {
+    "Precision": 0.1,
+    "Resolve": 0.35,
+    "Innovation": 0.3,
+    "Harmony": 0.25
   }
-]
+}

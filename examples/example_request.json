@@ -1,42 +1,68 @@
 {
   "spiky": {
     "language": {
-      "positivity": 72,
-      "objectivity": 64,
-      "proficiency": 80,
-      "hedging_ratio": 0.15,
-      "filler_ratio": 0.1,
-      "question_ratio": 0.22,
+      "positivity": 0.62,
+      "objectivity": 0.7,
+      "proficiency_cefr": "C1",
+      "hedging_ratio": 0.08,
+      "filler_ratio": 0.05,
+      "question_ratio": 0.18,
       "avg_sentence_len": 14,
-      "offensiveness": 5,
-      "patience": 65
+      "offensiveness": 0.0,
+      "patience": 95,
+      "keywords": {
+        "Solution": 1,
+        "Budget": 0.6,
+        "Opportunities-Advantages": 0.9
+      },
+      "emotions": {
+        "curiosity": 0.25,
+        "thoughtful": 0.2,
+        "approval": 0.15,
+        "optimism": 0.15,
+        "joy": 0.1,
+        "neutral": 0.15,
+        "nervousness": 0.05,
+        "confusion": 0.02,
+        "excitement": 0.2
+      }
     },
     "vocal": {
-      "energy": 78,
-      "emo_pos": 60,
-      "emo_neu": 25,
-      "emo_neg": 15
+      "energy": 0.72,
+      "emotions": {
+        "happy": 0.5,
+        "neutral": 0.4,
+        "sad": 0.05,
+        "angry": 0.05
+      }
     },
     "facial": {
-      "emo_pos": 55,
-      "emo_neu": 20,
-      "emo_dis": 10,
-      "attention_att": 70,
-      "attention_dist": 5
+      "attention": {
+        "attentive": 0.78,
+        "normal": 0.15,
+        "distracted": 0.07
+      },
+      "emotions": {
+        "happy": 0.42,
+        "neutral": 0.5,
+        "dissatisfied": 0.05,
+        "annoyed": 0.03
+      }
     },
     "interaction": {
-      "talk_listen": 0.55,
+      "talk_listen": 0.52,
       "speed_wpm": 145
     },
     "highlevel": {
-      "action_items": 3,
-      "followup_questions": 4
+      "action_items": 0.35,
+      "followup_questions": 0.25
     }
   },
   "bcat_pattern": [
     "Resolve",
     "Precision",
-    "Harmony",
-    "Innovation"
-  ]
+    "Innovation",
+    "Harmony"
+  ],
+  "session_id": "S-EXAMPLE-001"
 }
