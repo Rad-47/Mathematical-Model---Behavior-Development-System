@@ -28,11 +28,6 @@
       "contribution": 55.8
     },
     {
-      "metric": "proficiency",
-      "factor": "Precision",
-      "contribution": 51.74999999999999
-    },
-    {
       "metric": "facial_emo_dis_inv",
       "factor": "Harmony",
       "contribution": 50.6
@@ -56,12 +51,17 @@
       "metric": "emo_neg_inv",
       "factor": "Resolve",
       "contribution": 46.800000000000004
+    },
+    {
+      "metric": "attention_att",
+      "factor": "Harmony",
+      "contribution": 42.75
     }
   ],
   "normalized_metrics": {
+    "negativity_inv": 85.0,
     "positivity": 62.0,
     "objectivity": 70.0,
-    "proficiency": 100.0,
     "hedging_inv": 92.0,
     "filler_inv": 95.0,
     "question_ratio": 18.0,
@@ -82,7 +82,7 @@
     "emo_pos": 50.0,
     "emo_neu": 40.0,
     "emo_neg_inv": 90.0,
-    "attention_att": 78.0,
+    "attention_att": 85.5,
     "attention_dist_inv": 93.0,
     "facial_emo_pos": 42.0,
     "facial_emo_neu": 50.0,
