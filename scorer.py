@@ -48,6 +48,30 @@ def normalize_metrics(spiky: Dict) -> Dict[str, float]:
 
     out: Dict[str, float] = {}
 
+    # --- New: handle class-level positivity/objectivity/energy & strings ---
+    # Positivity classes: {positive, neutral, negative}
+    pos_classes = L.get("positivity_classes") or L.get("polarity") or (L.get("positivity") if isinstance(L.get("positivity"), dict) else None)
+    if isinstance(pos_classes, dict):
+        p = float(pos_classes.get("positive", 0))
+        neu = float(pos_classes.get("neutral", 0))
+        # conservative: treat neutral as half-positive
+        L.setdefault("positivity", max(0.0, min(1.0, p + 0.5*neu)))
+
+    # Objectivity classes: {objective, subjective} OR string "objective"/"subjective"
+    obj_classes = L.get("objectivity_classes") or (L.get("objectivity") if isinstance(L.get("objectivity"), dict) else None)
+    if isinstance(obj_classes, dict):
+        L.setdefault("objectivity", float(obj_classes.get("objective", 0)))
+    elif isinstance(L.get("objectivity"), str):
+        L["objectivity"] = 1.0 if str(L["objectivity"]).lower().startswith("obj") else 0.0
+
+    # Question flag may come as string label
+    if isinstance(L.get("question"), str):
+        L["question"] = 1.0 if L["question"].lower().startswith("question") else 0.0
+
+    # Offensiveness may come as string label
+    if isinstance(L.get("offensiveness"), str):
+        L["offensiveness"] = 1.0 if L["offensiveness"].lower().startswith("offen") else 0.0
+
     # Language
     if "proficiency_cefr" in L:
         cefr = str(L.get("proficiency_cefr")).upper()
@@ -115,6 +139,26 @@ def normalize_metrics(spiky: Dict) -> Dict[str, float]:
     if isinstance(att, dict) and att:
         if "attentive" in att:  F.setdefault("attention_att", att.get("attentive"))
         if "distracted" in att: F.setdefault("attention_dist", att.get("distracted"))
+
+    # Energy classes (vocal): energy may be a dict {"energetic": x, "monotonic": y}
+    if isinstance(V.get("energy"), dict):
+        ener = float(V["energy"].get("energetic", 0.0))
+        mono = float(V["energy"].get("monotonic", 0.0))
+        # prefer explicit energetic, else invert monotonic
+        V["energy"] = ener if ener > 0 else (1.0 - mono)
+
+    # Attention: include "normal" as moderate attention if present
+    if isinstance(att, dict) and att:
+        norm = float(att.get("normal", 0.0))
+        if "attention_att" not in F and ("attentive" in att or "normal" in att):
+            F["attention_att"] = float(att.get("attentive", 0.0)) + 0.5*norm
+        if "attention_dist" not in F and "distracted" in att:
+            F["attention_dist"] = float(att.get("distracted", 0.0))
+
+    # Facial emotions: treat "surprised" as neutral arousal by default
+    if isinstance(fe, dict) and fe:
+        if "surprised" in fe:
+            F.setdefault("emo_neu", float(F.get("emo_neu", 0.0)) + float(fe.get("surprised", 0.0)))
     if "attention_att" in F:  out["attention_att"] = to100(F["attention_att"] if F["attention_att"] <= 1 else F["attention_att"]/100)
     if "attention_dist" in F: out["attention_dist_inv"] = inv100(to100(F["attention_dist"]))
     if "emo_pos" in F:        out["facial_emo_pos"]   = to100(F["emo_pos"] if F["emo_pos"] <= 1 else F["emo_pos"]/100)

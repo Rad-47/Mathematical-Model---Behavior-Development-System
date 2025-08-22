@@ -25,6 +25,11 @@
         "nervousness": 0.05,
         "confusion": 0.02,
         "excitement": 0.2
+      },
+      "positivity_classes": {
+        "positive": 0.55,
+        "neutral": 0.3,
+        "negative": 0.15
       }
     },
     "vocal": {

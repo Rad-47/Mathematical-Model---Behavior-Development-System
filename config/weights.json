@@ -214,5 +214,11 @@
     "Resolve": 0.35,
     "Innovation": 0.3,
     "Harmony": 0.25
+  },
+  "negativity_inv": {
+    "Precision": 0.1,
+    "Resolve": 0.35,
+    "Innovation": 0.15,
+    "Harmony": 0.4
   }
 }
