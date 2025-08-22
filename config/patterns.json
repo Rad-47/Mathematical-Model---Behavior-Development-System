@@ -1,167 +1,177 @@
 [
   {
     "id": 1,
-    "name": "Precision \u2192 Resolve \u2192 Innovation \u2192 Harmony",
+    "name": "Resolve>Precision>Innovation>Harmony",
     "order": [
-      "Precision",
       "Resolve",
+      "Precision",
       "Innovation",
       "Harmony"
     ]
   },
   {
     "id": 2,
-    "name": "Precision \u2192 Resolve \u2192 Harmony \u2192 Innovation",
+    "name": "Resolve>Precision>Harmony>Innovation",
     "order": [
-      "Precision",
       "Resolve",
+      "Precision",
       "Harmony",
       "Innovation"
     ]
   },
   {
     "id": 3,
-    "name": "Precision \u2192 Innovation \u2192 Resolve \u2192 Harmony",
+    "name": "Resolve>Innovation>Precision>Harmony",
     "order": [
-      "Precision",
-      "Innovation",
       "Resolve",
+      "Innovation",
+      "Precision",
       "Harmony"
     ]
   },
   {
     "id": 4,
-    "name": "Precision \u2192 Innovation \u2192 Harmony \u2192 Resolve",
+    "name": "Resolve>Innovation>Harmony>Precision",
     "order": [
-      "Precision",
+      "Resolve",
       "Innovation",
       "Harmony",
-      "Resolve"
+      "Precision"
     ]
   },
   {
     "id": 5,
-    "name": "Precision \u2192 Harmony \u2192 Resolve \u2192 Innovation",
+    "name": "Resolve>Harmony>Precision>Innovation",
     "order": [
-      "Precision",
-      "Harmony",
       "Resolve",
+      "Harmony",
+      "Precision",
       "Innovation"
     ]
   },
   {
     "id": 6,
-    "name": "Precision \u2192 Harmony \u2192 Innovation \u2192 Resolve",
+    "name": "Resolve>Harmony>Innovation>Precision",
     "order": [
-      "Precision",
+      "Resolve",
       "Harmony",
       "Innovation",
-      "Resolve"
+      "Precision"
     ]
   },
   {
     "id": 7,
-    "name": "Resolve \u2192 Precision \u2192 Innovation \u2192 Harmony",
+    "name": "Precision>Resolve>Innovation>Harmony",
     "order": [
-      "Resolve",
       "Precision",
+      "Resolve",
       "Innovation",
       "Harmony"
     ]
   },
   {
     "id": 8,
-    "name": "Resolve \u2192 Precision \u2192 Harmony \u2192 Innovation",
+    "name": "Precision>Resolve>Harmony>Innovation",
     "order": [
-      "Resolve",
       "Precision",
+      "Resolve",
       "Harmony",
       "Innovation"
     ]
   },
   {
     "id": 9,
-    "name": "Resolve \u2192 Innovation \u2192 Precision \u2192 Harmony",
+    "name": "Precision>Innovation>Resolve>Harmony",
     "order": [
-      "Resolve",
-      "Innovation",
       "Precision",
+      "Innovation",
+      "Resolve",
       "Harmony"
     ]
   },
   {
     "id": 10,
-    "name": "Resolve \u2192 Innovation \u2192 Harmony \u2192 Precision",
+    "name": "Precision>Innovation>Harmony>Resolve",
     "order": [
-      "Resolve",
+      "Precision",
       "Innovation",
       "Harmony",
-      "Precision"
+      "Resolve"
     ]
   },
   {
     "id": 11,
-    "name": "Resolve \u2192 Harmony \u2192 Precision \u2192 Innovation",
+    "name": "Precision>Harmony>Resolve>Innovation",
     "order": [
-      "Resolve",
-      "Harmony",
       "Precision",
+      "Harmony",
+      "Resolve",
       "Innovation"
     ]
   },
   {
     "id": 12,
-    "name": "Resolve \u2192 Harmony \u2192 Innovation \u2192 Precision",
+    "name": "Precision>Harmony>Innovation>Resolve",
     "order": [
-      "Resolve",
+      "Precision",
       "Harmony",
       "Innovation",
-      "Precision"
+      "Resolve"
     ]
   },
   {
     "id": 13,
-    "name": "Innovation \u2192 Precision \u2192 Resolve \u2192 Harmony",
+    "name": "Innovation>Resolve>Precision>Harmony",
     "order": [
       "Innovation",
-      "Precision",
       "Resolve",
+      "Precision",
       "Harmony"
     ]
   },
   {
     "id": 14,
-    "name": "Innovation \u2192 Precision \u2192 Harmony \u2192 Resolve",
+    "name": "Innovation>Resolve>Harmony>Precision",
     "order": [
       "Innovation",
-      "Precision",
+      "Resolve",
       "Harmony",
-      "Resolve"
+      "Precision"
     ]
   },
   {
     "id": 15,
-    "name": "Innovation \u2192 Resolve \u2192 Precision \u2192 Harmony",
+    "name": "Innovation>Precision>Resolve>Harmony",
     "order": [
       "Innovation",
-      "Resolve",
       "Precision",
+      "Resolve",
       "Harmony"
     ]
   },
   {
     "id": 16,
-    "name": "Innovation \u2192 Resolve \u2192 Harmony \u2192 Precision",
+    "name": "Innovation>Precision>Harmony>Resolve",
     "order": [
       "Innovation",
-      "Resolve",
+      "Precision",
       "Harmony",
-      "Precision"
+      "Resolve"
     ]
   },
   {
     "id": 17,
-    "name": "Innovation \u2192 Harmony \u2192 Precision \u2192 Resolve",
+    "name": "Innovation>Harmony>Resolve>Precision",
+    "order": [
+      "Innovation",
+      "Harmony",
+      "Resolve",
+      "Precision"
+    ]
+  },
+  {
+    "id": 18,
+    "name": "Innovation>Harmony>Precision>Resolve",
     "order": [
       "Innovation",
       "Harmony",
@@ -170,73 +180,63 @@
     ]
   },
   {
-    "id": 18,
-    "name": "Innovation \u2192 Harmony \u2192 Resolve \u2192 Precision",
-    "order": [
-      "Innovation",
-      "Harmony",
-      "Resolve",
-      "Precision"
-    ]
-  },
-  {
     "id": 19,
-    "name": "Harmony \u2192 Precision \u2192 Resolve \u2192 Innovation",
+    "name": "Harmony>Resolve>Precision>Innovation",
     "order": [
       "Harmony",
-      "Precision",
       "Resolve",
+      "Precision",
       "Innovation"
     ]
   },
   {
     "id": 20,
-    "name": "Harmony \u2192 Precision \u2192 Innovation \u2192 Resolve",
+    "name": "Harmony>Resolve>Innovation>Precision",
     "order": [
       "Harmony",
-      "Precision",
+      "Resolve",
       "Innovation",
-      "Resolve"
+      "Precision"
     ]
   },
   {
     "id": 21,
-    "name": "Harmony \u2192 Resolve \u2192 Precision \u2192 Innovation",
+    "name": "Harmony>Precision>Resolve>Innovation",
     "order": [
       "Harmony",
-      "Resolve",
       "Precision",
+      "Resolve",
       "Innovation"
     ]
   },
   {
     "id": 22,
-    "name": "Harmony \u2192 Resolve \u2192 Innovation \u2192 Precision",
+    "name": "Harmony>Precision>Innovation>Resolve",
     "order": [
       "Harmony",
-      "Resolve",
+      "Precision",
       "Innovation",
-      "Precision"
+      "Resolve"
     ]
   },
   {
     "id": 23,
-    "name": "Harmony \u2192 Innovation \u2192 Precision \u2192 Resolve",
+    "name": "Harmony>Innovation>Resolve>Precision",
+    "order": [
+      "Harmony",
+      "Innovation",
+      "Resolve",
+      "Precision"
+    ]
+  },
+  {
+    "id": 24,
+    "name": "Harmony>Innovation>Precision>Resolve",
     "order": [
       "Harmony",
       "Innovation",
       "Precision",
       "Resolve"
-    ]
-  },
-  {
-    "id": 24,
-    "name": "Harmony \u2192 Innovation \u2192 Resolve \u2192 Precision",
-    "order": [
-      "Harmony",
-      "Innovation",
-      "Resolve",
-      "Precision"
     ]
   }
 ]

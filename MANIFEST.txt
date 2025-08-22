@@ -1,0 +1,13 @@
+DEPLOYMENT_GUIDE.md | 766 bytes | ac993a38384a751e3b0fad6952dcfccb29121fbeb1dd82412ec2c22f1d1e8ed6
+Dockerfile | 200 bytes | 025e55bbffe5e5efbfee2013277183248d961ccfb0d391c64733ee1968531947
+README.md | 206 bytes | 8c17326263ece65cc67008d636cac31d368e5e908816194e03e413eb75359948
+__pycache__/scorer.cpython-311.pyc | 17728 bytes | fd412d182aeda5d024282fd91d806e0272b06830fd085e57dddaf5add8ecfd2e
+api.py | 828 bytes | 98bb4640d3089b5361b5b30495400dfc2eab9ad88c8533a74a01816fd40feb4b
+config/multipliers.json | 82 bytes | 1972c9d28daad57dc6489af02e426b31a8f608f5c57aa25dcae0675516d75445
+config/patterns.json | 4025 bytes | e26358a3ec6fdb74d2b6b90f338c6e4a87134e37dda9e023e18dca3aae643917
+config/weights.json | 4062 bytes | 572f61f9144c6ce9bc342aa5657c7d0f4331f61c7c76f804f9cde65c91e8aa42
+examples/example_request.json | 1379 bytes | 067185f850f83074f21a89f5d4660c472d93cb80b3234c8ffb6927beba122313
+examples/example_response.json | 2243 bytes | 8a84d20da90b317ea6e015081187b33a4cf2925926ba40fd6c4849fd8daaf9eb
+requirements.txt | 31 bytes | d70f7d3c8c18c688ae7c1a2d77393482ef5189e20fa31907ba1a8d3c58571ae3
+scorer.py | 8735 bytes | 0b5f5db3efcb927498e7d66421890b0bf954529cd17f9e79e3950b3a69352a76
+tests/test_scoring.py | 501 bytes | 63eda641c4d739a8c29b4b7e92020680c0f5c130557f6e2dba8af99f80214277

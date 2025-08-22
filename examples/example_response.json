@@ -5,81 +5,91 @@
     "innovation": 100.0,
     "harmony": 100.0
   },
-  "alignment_pct": 99.49,
+  "alignment_pct": 99.48547976422802,
   "top_drivers": [
     {
-      "metric": "language.filler_inv",
-      "factor": "precision",
-      "contribution": 41.4
+      "metric": "lang_emo_nervousness",
+      "factor": "Resolve",
+      "contribution": 74.10000000000001
     },
     {
-      "metric": "interaction.talk_listen_bal",
-      "factor": "resolve",
-      "contribution": 40.95
+      "metric": "lang_emo_confusion",
+      "factor": "Precision",
+      "contribution": 67.61999999999999
     },
     {
-      "metric": "vocal.energy",
-      "factor": "resolve",
-      "contribution": 40.56
+      "metric": "energy",
+      "factor": "Resolve",
+      "contribution": 56.16
     },
     {
-      "metric": "facial.distracted_inv",
-      "factor": "resolve",
-      "contribution": 37.05
+      "metric": "attention_dist_inv",
+      "factor": "Harmony",
+      "contribution": 55.8
     },
     {
-      "metric": "language.filler_inv",
-      "factor": "resolve",
-      "contribution": 35.1
+      "metric": "proficiency",
+      "factor": "Precision",
+      "contribution": 51.74999999999999
     },
     {
-      "metric": "language.hedging_inv",
-      "factor": "precision",
-      "contribution": 34.21
+      "metric": "facial_emo_dis_inv",
+      "factor": "Harmony",
+      "contribution": 50.6
     },
     {
-      "metric": "language.hedging_inv",
-      "factor": "resolve",
-      "contribution": 33.15
+      "metric": "offensiveness_inv",
+      "factor": "Harmony",
+      "contribution": 50.0
     },
     {
-      "metric": "facial.distracted_inv",
-      "factor": "precision",
-      "contribution": 32.77
+      "metric": "filler_inv",
+      "factor": "Precision",
+      "contribution": 49.162499999999994
     },
     {
-      "metric": "language.proficiency",
-      "factor": "precision",
-      "contribution": 32.2
+      "metric": "objectivity",
+      "factor": "Precision",
+      "contribution": 48.3
     },
     {
-      "metric": "derived.action_items",
-      "factor": "resolve",
-      "contribution": 31.2
+      "metric": "emo_neg_inv",
+      "factor": "Resolve",
+      "contribution": 46.800000000000004
     }
   ],
   "normalized_metrics": {
-    "language.positivity": 72,
-    "language.objectivity": 64,
-    "language.proficiency": 80,
-    "language.question_ratio": 22.0,
-    "language.offensiveness_inv": 95.0,
-    "language.filler_inv": 90.0,
-    "language.hedging_inv": 85.0,
-    "language.avg_sentence_len": 47.62,
-    "language.patience": 36.11,
-    "vocal.energy": 78,
-    "vocal.emo_pos": 60,
-    "vocal.emo_neu": 25,
-    "vocal.emo_neg_inv": 85.0,
-    "facial.emo_pos": 55,
-    "facial.emo_neu": 20,
-    "facial.emo_dis_inv": 90.0,
-    "facial.attentive": 70,
-    "facial.distracted_inv": 95.0,
-    "interaction.talk_listen_bal": 90.0,
-    "interaction.speed_wpm": 61.11,
-    "derived.action_items": 60.0,
-    "derived.followup_questions": 40.0
+    "positivity": 62.0,
+    "objectivity": 70.0,
+    "proficiency": 100.0,
+    "hedging_inv": 92.0,
+    "filler_inv": 95.0,
+    "question_ratio": 18.0,
+    "avg_sentence_len_norm": 47.61904761904761,
+    "offensiveness_inv": 100.0,
+    "patience_norm": 52.77777777777778,
+    "kw_strength": 83.33333333333333,
+    "lang_emo_nervousness": 95.0,
+    "lang_emo_confusion": 98.0,
+    "lang_emo_neutral": 15.0,
+    "lang_emo_curiosity": 25.0,
+    "lang_emo_thoughtful": 20.0,
+    "lang_emo_optimism": 15.0,
+    "lang_emo_approval": 15.0,
+    "lang_emo_joy": 10.0,
+    "lang_emo_excitement": 20.0,
+    "energy": 72.0,
+    "emo_pos": 50.0,
+    "emo_neu": 40.0,
+    "emo_neg_inv": 90.0,
+    "attention_att": 78.0,
+    "attention_dist_inv": 93.0,
+    "facial_emo_pos": 42.0,
+    "facial_emo_neu": 50.0,
+    "facial_emo_dis_inv": 92.0,
+    "talk_balance": 96.0,
+    "speed_wpm_norm": 61.111111111111114,
+    "action_items": 35.0,
+    "followup_questions": 25.0
   }
 }

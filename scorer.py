@@ -1,196 +1,195 @@
-
 from typing import Dict, List, Tuple
-import math
-import json
-import pathlib
+import json, os
+import numpy as np
 
-CONFIG_DIR = pathlib.Path(__file__).parent / "config"
+FACTORS = ["Precision","Resolve","Innovation","Harmony"]
 
-def load_config():
-    with open(CONFIG_DIR / "weights.json") as f:
-        weights = json.load(f)
-    with open(CONFIG_DIR / "multipliers.json") as f:
-        multipliers = json.load(f)
-    # Build lookup
-    weight_lookup = {row["metric"]: {k: row[k] for k in ["precision","resolve","innovation","harmony"]} for row in weights}
-    return weight_lookup, multipliers
+def _load_json(path: str) -> dict:
+    with open(path, "r") as f:
+        return json.load(f)
 
-WEIGHTS, MULTS = load_config()
+CONF_DIR = os.path.join(os.path.dirname(__file__), "config")
+WEIGHTS = _load_json(os.path.join(CONF_DIR, "weights.json"))
+MULT = _load_json(os.path.join(CONF_DIR, "multipliers.json"))
+PATTERNS = _load_json(os.path.join(CONF_DIR, "patterns.json"))
 
-import itertools
+def load_patterns_by(pattern_id: int = None, pattern_name: str = None, bcat_pattern: List[str] = None) -> List[str]:
+    if bcat_pattern:
+        assert set(bcat_pattern) == set(FACTORS)
+        return bcat_pattern
+    if pattern_id is not None:
+        for p in PATTERNS:
+            if p["id"] == pattern_id:
+                return p["order"]
+        raise ValueError("Unknown pattern_id")
+    if pattern_name is not None:
+        for p in PATTERNS:
+            if p["name"] == pattern_name:
+                return p["order"]
+        raise ValueError("Unknown pattern_name")
+    return ["Resolve","Precision","Innovation","Harmony"]
 
-def load_patterns():
-    p = json.load(open(CONFIG_DIR / "patterns.json"))
-    id_to_order = {int(row["id"]): row["order"] for row in p}
-    name_to_order = {row["name"]: row["order"] for row in p}
-    return id_to_order, name_to_order
-
-PATTERN_BY_ID, PATTERN_BY_NAME = load_patterns()
-
-def resolve_pattern(pattern_or_id):
-    """
-    Accepts:
-      - list of factors, e.g., ["Resolve","Precision","Harmony","Innovation"]
-      - integer id (1..24)
-      - pattern name string (exact match from config)
-    Returns normalized order list.
-    """
-    if isinstance(pattern_or_id, list):
-        return pattern_or_id
-    if isinstance(pattern_or_id, int):
-        return PATTERN_BY_ID.get(pattern_or_id)
-    if isinstance(pattern_or_id, str):
-        if pattern_or_id in PATTERN_BY_NAME:
-            return PATTERN_BY_NAME[pattern_or_id]
-        # also allow comma-separated "Resolve, Precision, Harmony, Innovation"
-        parts = [p.strip() for p in pattern_or_id.split(",")]
-        if len(parts) == 4:
-            return parts
-    return None
-
-# ---- Normalization helpers ----
-
-def clamp(x: float, lo: float, hi: float) -> float:
-    return max(lo, min(hi, x))
-
-def scale_minmax(x: float, lo: float, hi: float) -> float:
-    x = clamp(x, lo, hi)
-    return 0.0 if hi==lo else 100.0 * (x - lo) / (hi - lo)
-
-def ratio_to_pct(r: float) -> float:
-    return clamp(100.0 * r, 0.0, 100.0)
-
-def invert_pct(p: float) -> float:
-    return clamp(100.0 - p, 0.0, 100.0)
+def clamp01(x): return max(0.0, min(1.0, float(x)))
+def to100(x):  return clamp01(x) * 100.0
+def minmax_to100(x, lo, hi):
+    x = float(x)
+    if x <= lo: return 0.0
+    if x >= hi: return 100.0
+    return (x - lo) / (hi - lo) * 100.0
+def inv100(x): return 100.0 - float(x)
+def talk_balance_from_ratio(r): return 100.0 - abs(clamp01(r) - 0.5) * 200.0
 
 def normalize_metrics(spiky: Dict) -> Dict[str, float]:
-    """Returns a flat dict of normalized metrics 0..100 following the config keys."""
-    out = {}
-    lang = spiky.get("language", {})
-    vocal = spiky.get("vocal", {})
-    facial = spiky.get("facial", {})
-    inter = spiky.get("interaction", {})
-    hlev = spiky.get("highlevel", {})
+    L = spiky.get("language",{}) or {}
+    V = spiky.get("vocal",{}) or {}
+    F = spiky.get("facial",{}) or {}
+    I = spiky.get("interaction",{}) or {}
+    H = spiky.get("highlevel",{}) or {}
+
+    out: Dict[str, float] = {}
 
     # Language
-    if "positivity" in lang: out["language.positivity"] = clamp(lang["positivity"], 0, 100)
-    if "objectivity" in lang: out["language.objectivity"] = clamp(lang["objectivity"], 0, 100)
-    if "proficiency" in lang: out["language.proficiency"] = clamp(lang["proficiency"], 0, 100)  # assume 0-100 mapped from A1..C1 upstream
-    if "question_ratio" in lang: out["language.question_ratio"] = ratio_to_pct(lang["question_ratio"])
-    if "offensiveness" in lang: out["language.offensiveness_inv"] = invert_pct(clamp(lang["offensiveness"],0,100))
-    if "filler_ratio" in lang: out["language.filler_inv"] = invert_pct(ratio_to_pct(lang["filler_ratio"]))
-    if "hedging_ratio" in lang: out["language.hedging_inv"] = invert_pct(ratio_to_pct(lang["hedging_ratio"]))
-    if "avg_sentence_len" in lang: out["language.avg_sentence_len"] = scale_minmax(lang["avg_sentence_len"], 4, 25)  # words
-    if "patience" in lang: out["language.patience"] = scale_minmax(lang["patience"], 0, 180)  # seconds
+    if "proficiency_cefr" in L:
+        cefr = str(L.get("proficiency_cefr")).upper()
+        cefr_map = {"A1":0.2,"A2":0.4,"B1":0.6,"B2":0.8,"C1":1.0}
+        L.setdefault("proficiency", cefr_map.get(cefr, 0.6))
+    if "question" in L and "question_ratio" not in L:
+        q = L.get("question")
+        try: qv = float(q)
+        except: qv = 1.0 if bool(q) else 0.0
+        L["question_ratio"] = qv
+
+    if "positivity" in L: out["positivity"] = to100(L["positivity"] if L["positivity"] <= 1 else L["positivity"]/100)
+    if "objectivity" in L: out["objectivity"] = to100(L["objectivity"] if L["objectivity"] <= 1 else L["objectivity"]/100)
+    if "proficiency" in L: out["proficiency"] = to100(L["proficiency"] if L["proficiency"] <= 1 else L["proficiency"]/100)
+
+    if "hedging_ratio" in L:   out["hedging_inv"]   = inv100(to100(L["hedging_ratio"]))
+    if "filler_ratio" in L:    out["filler_inv"]    = inv100(to100(L["filler_ratio"]))
+    if "question_ratio" in L:  out["question_ratio"]= to100(L["question_ratio"])
+
+    if "avg_sentence_len" in L: out["avg_sentence_len_norm"] = minmax_to100(L["avg_sentence_len"], 4, 25)
+    if "offensiveness" in L:    out["offensiveness_inv"] = inv100(to100(L["offensiveness"]))
+    if "patience" in L:         out["patience_norm"] = minmax_to100(L["patience"], 0, 180)
+
+    kw = L.get("keywords") or {}
+    if isinstance(kw, dict) and len(kw) > 0:
+        vals = []
+        for _,v in kw.items():
+            v100 = to100(v if v <= 1 else v/100)
+            vals.append(v100)
+        out["kw_strength"] = float(np.mean(vals)) if vals else 0.0
+
+    em = L.get("emotions") or {}
+    def _to100(v): return to100(v if v <= 1 else v/100)
+    emo_keys = ["nervousness","disapproval","sadness","anger","confusion",
+                "neutral","curiosity","thoughtful","admiration","optimism",
+                "approval","joy","excitement"]
+    for ek in emo_keys:
+        if ek in em:
+            val100 = _to100(em[ek])
+            key = f"lang_emo_{ek}"
+            if ek in ["nervousness","disapproval","sadness","anger","confusion"]:
+                val100 = 100.0 - val100
+            out[key] = val100
 
     # Vocal
-    if "energy" in vocal: out["vocal.energy"] = clamp(vocal["energy"], 0, 100)
-    if "emo_pos" in vocal: out["vocal.emo_pos"] = clamp(vocal["emo_pos"], 0, 100)
-    if "emo_neu" in vocal: out["vocal.emo_neu"] = clamp(vocal["emo_neu"], 0, 100)
-    if "emo_neg" in vocal: out["vocal.emo_neg_inv"] = invert_pct(clamp(vocal["emo_neg"],0,100))
+    ve = V.get("emotions") or {}
+    if isinstance(ve, dict) and ve:
+        if "happy" in ve:   V.setdefault("emo_pos", ve.get("happy"))
+        if "neutral" in ve: V.setdefault("emo_neu", ve.get("neutral"))
+        if ("sad" in ve) or ("angry" in ve):
+            V.setdefault("emo_neg", (ve.get("sad",0)+ve.get("angry",0)))
+    if "energy" in V:  out["energy"] = to100(V["energy"] if V["energy"] <= 1 else V["energy"]/100)
+    if "emo_pos" in V: out["emo_pos"] = to100(V["emo_pos"] if V["emo_pos"] <= 1 else V["emo_pos"]/100)
+    if "emo_neu" in V: out["emo_neu"] = to100(V["emo_neu"] if V["emo_neu"] <= 1 else V["emo_neu"]/100)
+    if "emo_neg" in V: out["emo_neg_inv"] = inv100(to100(V["emo_neg"]))
 
-    # Facial (optional)
-    if "emo_pos" in facial: out["facial.emo_pos"] = clamp(facial["emo_pos"], 0, 100)
-    if "emo_neu" in facial: out["facial.emo_neu"] = clamp(facial["emo_neu"], 0, 100)
-    if "emo_dis" in facial: out["facial.emo_dis_inv"] = invert_pct(clamp(facial["emo_dis"],0,100))
-    if "attention_att" in facial: out["facial.attentive"] = clamp(facial["attention_att"], 0, 100)
-    if "attention_dist" in facial: out["facial.distracted_inv"] = invert_pct(clamp(facial["attention_dist"],0,100))
+    # Facial
+    fe = F.get("emotions") or {}
+    if isinstance(fe, dict) and fe:
+        if "happy" in fe:   F.setdefault("emo_pos", fe.get("happy"))
+        if "neutral" in fe: F.setdefault("emo_neu", fe.get("neutral"))
+        if ("dissatisfied" in fe) or ("annoyed" in fe):
+            F.setdefault("emo_dis", (fe.get("dissatisfied",0)+fe.get("annoyed",0)))
+    att = F.get("attention") or {}
+    if isinstance(att, dict) and att:
+        if "attentive" in att:  F.setdefault("attention_att", att.get("attentive"))
+        if "distracted" in att: F.setdefault("attention_dist", att.get("distracted"))
+    if "attention_att" in F:  out["attention_att"] = to100(F["attention_att"] if F["attention_att"] <= 1 else F["attention_att"]/100)
+    if "attention_dist" in F: out["attention_dist_inv"] = inv100(to100(F["attention_dist"]))
+    if "emo_pos" in F:        out["facial_emo_pos"]   = to100(F["emo_pos"] if F["emo_pos"] <= 1 else F["emo_pos"]/100)
+    if "emo_neu" in F:        out["facial_emo_neu"]   = to100(F["emo_neu"] if F["emo_neu"] <= 1 else F["emo_neu"]/100)
+    if "emo_dis" in F:        out["facial_emo_dis_inv"]= inv100(to100(F["emo_dis"]))
 
-    # Interaction & derived
-    if "talk_listen" in inter:
-        # Expect ratio as speaker_share (0..1) or balance score 0..1
-        # Convert to "balance" where 0.5 is best → score = 100 - |ratio - 0.5|*200
-        r = max(0.0, min(1.0, inter["talk_listen"]))
-        out["interaction.talk_listen_bal"] = clamp(100.0 - abs(r - 0.5) * 200.0, 0.0, 100.0)
-    if "speed_wpm" in inter:
-        # Optimal ~140 wpm; reasonable 90..180
-        out["interaction.speed_wpm"] = scale_minmax(inter["speed_wpm"], 90, 180)
+    # Interaction
+    if "talk_listen" in I: out["talk_balance"]   = talk_balance_from_ratio(float(I["talk_listen"]))
+    if "speed_wpm"  in I:  out["speed_wpm_norm"] = minmax_to100(I["speed_wpm"], 90, 180)
 
-    if "action_items" in hlev:
-        # Cap at 5 for scoring
-        out["derived.action_items"] = scale_minmax(hlev["action_items"], 0, 5)
-    if "followup_questions" in hlev:
-        out["derived.followup_questions"] = scale_minmax(hlev["followup_questions"], 0, 10)
+    # High-level
+    if "action_items" in H:       out["action_items"] = to100(H["action_items"] if H["action_items"] <= 1 else H["action_items"]/100)
+    if "followup_questions" in H: out["followup_questions"] = to100(H["followup_questions"] if H["followup_questions"] <= 1 else H["followup_questions"]/100)
 
     return out
 
-def apply_weights(norm: Dict[str,float]) -> Dict[str, float]:
-    """Compute base factor scores from normalized metrics and weight matrix."""
-    totals = {"precision":0.0, "resolve":0.0, "innovation":0.0, "harmony":0.0}
-    for metric, s in norm.items():
-        if metric not in WEIGHTS:
-            # Unknown metric => ignore gracefully
+def base_factors(s_norm: Dict[str, float]) -> Dict[str, float]:
+    base = {f: 0.0 for f in FACTORS}
+    for m, s in s_norm.items():
+        if m not in WEIGHTS: 
             continue
-        row = WEIGHTS[metric]
-        row_sum = sum(row.values())
-        if row_sum <= 0: 
+        row = WEIGHTS[m]
+        denom = sum(row.get(f,0.0) for f in FACTORS) or 1.0
+        for f in FACTORS:
+            share = row.get(f,0.0) / denom
+            base[f] += s * share
+    for f in FACTORS:
+        base[f] = float(max(0.0, min(100.0, base[f])))
+    return base
+
+def apply_multipliers(base: Dict[str, float], pattern: List[str]) -> Tuple[Dict[str, float], Dict[str, float]]:
+    pos = {pattern[0]:"primary", pattern[1]:"secondary", pattern[2]:"tertiary", pattern[3]:"quaternary"}
+    pf = {f: MULT[pos[f]] for f in FACTORS}
+    scored = {f: float(min(100.0, base[f] * pf[f])) for f in FACTORS}
+    return scored, pf
+
+def alignment_percent(scored: Dict[str, float], pf: Dict[str,float]) -> float:
+    s = np.array([scored[f] for f in FACTORS], dtype=float)
+    t = np.array([pf[f] for f in FACTORS], dtype=float)
+    t = t / (np.linalg.norm(t) + 1e-9)
+    denom = (np.linalg.norm(s) + 1e-9) * (np.linalg.norm(t) + 1e-9)
+    cos = float(np.dot(s, t) / denom) if denom > 0 else 0.0
+    return float(max(0.0, min(100.0, cos * 100.0)))
+
+def top_drivers(s_norm: Dict[str,float], pf: Dict[str,float], k: int = 10):
+    contribs = []
+    for m, s in s_norm.items():
+        if m not in WEIGHTS: 
             continue
-        for f in totals.keys():
-            totals[f] += (row[f] / row_sum) * s
-    return totals
+        row = WEIGHTS[m]
+        denom = sum(row.get(f,0.0) for f in FACTORS) or 1.0
+        for f in FACTORS:
+            share = row.get(f,0.0) / denom
+            contribs.append({
+                "metric": m,
+                "factor": f,
+                "contribution": float(s * share * pf[f])
+            })
+    contribs.sort(key=lambda x: x["contribution"], reverse=True)
+    return contribs[:k]
 
-def multipliers_from_pattern(pattern: List[str]) -> Dict[str, float]:
-    # pattern is ordered high→low priority, e.g. ["Resolve","Precision","Harmony","Innovation"]
-    mp = {}
-    order = ["primary","secondary","tertiary","quaternary"]
-    for i, factor in enumerate(pattern):
-        key = order[i] if i < 4 else "quaternary"
-        mp[factor.lower()] = MULTS[key]
-    # Ensure all present
-    for f in ["precision","resolve","innovation","harmony"]:
-        mp.setdefault(f, MULTS["quaternary"])
-    return mp
-
-def apply_pattern(base: Dict[str,float], pattern: List[str]) -> Dict[str,float]:
-    mults = multipliers_from_pattern(pattern)
-    out = {}
-    for f, val in base.items():
-        out[f] = min(100.0, val * mults[f])  # cap at 100
-    return out
-
-def cosine_similarity(a: List[float], b: List[float]) -> float:
-    dot = sum(x*y for x,y in zip(a,b))
-    na = math.sqrt(sum(x*x for x in a))
-    nb = math.sqrt(sum(x*x for x in b))
-    if na == 0 or nb == 0:
-        return 0.0
-    return dot / (na * nb)
-
-def alignment_score(factors: Dict[str,float], pattern: List[str]) -> float:
-    # Target vector from multipliers order
-    mults = multipliers_from_pattern(pattern)
-    t = [mults["precision"], mults["resolve"], mults["innovation"], mults["harmony"]]
-    s = [factors["precision"], factors["resolve"], factors["innovation"], factors["harmony"]]
-    cos = cosine_similarity(s, t)
-    return round(100.0 * cos, 2)
-
-def drivers(norm: Dict[str,float], pattern: List[str]) -> List[Dict]:
-    """Return per-metric contributions for explainability."""
-    mults = multipliers_from_pattern(pattern)
-    out = []
-    for metric, s in norm.items():
-        if metric not in WEIGHTS: 
-            continue
-        row = WEIGHTS[metric]
-        row_sum = sum(row.values())
-        for f, w in row.items():
-            contrib = (w/row_sum) * s * mults[f]
-            out.append({"metric": metric, "factor": f, "contribution": round(contrib,2)})
-    out.sort(key=lambda d: d["contribution"], reverse=True)
-    return out
-
-def score_session(spiky_metrics: Dict, bcat_pattern_or_id) -> Dict:
-    norm = normalize_metrics(spiky_metrics)
-    base = apply_weights(norm)
-    pattern = resolve_pattern(bcat_pattern_or_id)
-    if not pattern:
-        raise ValueError('Invalid BCAT pattern or id')
-    fact = apply_pattern(base, pattern)
-    align = alignment_score(fact, pattern)
-    drv = drivers(norm, bcat_pattern)[:10]
+def score_payload(spiky: Dict, pattern_order: List[str]) -> Dict:
+    s_norm = normalize_metrics(spiky)
+    base = base_factors(s_norm)
+    scored, pf = apply_multipliers(base, pattern_order)
+    align = alignment_percent(scored, pf)
+    drivers = top_drivers(s_norm, pf, k=10)
     return {
-        "factors": {k: round(v,2) for k,v in fact.items()},
+        "factors": {
+            "precision": scored["Precision"],
+            "resolve": scored["Resolve"],
+            "innovation": scored["Innovation"],
+            "harmony": scored["Harmony"]
+        },
         "alignment_pct": align,
-        "top_drivers": drv,
-        "normalized_metrics": {k: round(v,2) for k,v in norm.items()}
+        "top_drivers": drivers,
+        "normalized_metrics": s_norm
     }
